@@ -26,6 +26,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'                      " разрешаем Вандалу обновлять самого себя
 Plugin 'git@github.com:scrooloose/nerdtree.git'
 Plugin 'git@github.com:bling/vim-airline.git'
+Plugin 'git@github.com:Valloric/YouCompleteMe.git'
 
 " Plugin ''                                     " по анологии выше вставляем ssh плагинов выше
 
@@ -96,3 +97,6 @@ let g:airline#extensions#tabline#show_close_button = 0
   nmap #1 :bp<cr>				" следующий буфер
   nmap #2 :bn<cr>				" предидущий буфер
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   >> YCM <<
+
+
