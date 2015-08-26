@@ -1,5 +1,6 @@
 "   >> VIM <<
 
+"let &path.=","         " переменная path, которая содержит список папок для поиска файлов по названию, разделенный запятыми.
 set t_Co=256            " включает поддержку цветов
 set exrc                " она говорит vim'у искать дополнительный .vimrc в текущей рабочей директории.
 set secure              " в основном, она запрещает внешним .vimrc писать что-то в файлы, 
@@ -7,12 +8,36 @@ set secure              " в основном, она запрещает вне�
 set tabstop=4           " количество пробелов, которыми символ табуляции отображается в тексте.
 "set softtabstop=4      " количество пробелов, которыми символ табуляции отображается при добавлении.
 set shiftwidth=4        " по умолчанию используется для регулирование ширины отступов в пробелах добавляемых командами >> и <<.
+set smartindent         " включаем ‘умную’ автоматическую расстановку отступов.
 set expandtab           " позволяет при нажатии на клавишу TAB вставлять в текст пробелы.
 set colorcolumn=130     " подсветка предела строки.
 highlight ColorColumn ctermbg=red		
                         " цвет предела строки.
-"let &path.=","         " переменная path, которая содержит список папок для поиска, разделенный запятыми.
-"set laststatus=2       " показывать имя буфера в заголовке терминала.
+set number              " номерация строк.
+set background=dark     " включает отображение номеров строк
+
+function! BindF5_C()    
+    if filereadable("Makefile")
+        set makeprg=make
+            map <f5>      :w<cr>:make<cr>:cw<cr>
+            imap <f5> <esc>:w<cr>:make<cr>:cw<cr>
+        else
+            map <f5>      :w<cr>:make %:r<cr>:cw<cr>
+            imap <f5> <esc>:w<cr>:make %:r<cr>:cw<cr>
+        endif
+    endfunction
+    au FileType c,cc,cpp,h,hpp,s call BindF5_C()
+function! BindF9_C()
+    if filereadable("Makefile")
+        set makeprg=make
+        map <f9>      :w<cr>:make<cr>:cw<cr>:!./%<<cr>
+        imap <f9> <esc>:w<cr>:make<cr>:cw<cr>:!./%<<cr>
+    else
+        map <f9>      :w<cr>:make %:r<cr>:cw<cr>:!./%<<cr>
+        imap <f9> <esc>:w<cr>:make %:r<cr>:cw<cr>:!./%<<cr>
+    endif
+endfunction
+au FileType c,cc,cpp,h,hpp,s call BindF9_C()    
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   >> Vundle <<
 
@@ -80,9 +105,9 @@ let g:airline#extensions#tabline#left_sep = '▙'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " показывать буффер строку только при двух открытых
-let g:airline#extensions#tabline#buffer_min_count = 2
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_close_button = 0
+"let g:airline#extensions#tabline#buffer_min_count = 2
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
+"let g:airline#extensions#tabline#show_close_button = 0
 
 " быстрые клавишы переключения между открытыми буферами
   nmap <leader>1 <Plug>AirlineSelectTab1
