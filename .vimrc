@@ -15,18 +15,18 @@ highlight ColorColumn ctermbg=red
                         " цвет предела строки.
 set number              " номерация строк.
 set background=dark     " включает отображение номеров строк
-
+""""""""""""""""""""""" " функция F5 для компиляции и вывода ошибок и F9 для компиляции и запуска
 function! BindF5_C()    
     if filereadable("Makefile")
         set makeprg=make
-            map <f5>      :w<cr>:make<cr>:cw<cr>
-            imap <f5> <esc>:w<cr>:make<cr>:cw<cr>
-        else
-            map <f5>      :w<cr>:make %:r<cr>:cw<cr>
-            imap <f5> <esc>:w<cr>:make %:r<cr>:cw<cr>
-        endif
-    endfunction
-    au FileType c,cc,cpp,h,hpp,s call BindF5_C()
+        map <f5>      :w<cr>:make<cr>:cw<cr>
+        imap <f5> <esc>:w<cr>:make<cr>:cw<cr>
+    else
+        map <f5>      :w<cr>:make %:r<cr>:cw<cr>
+        imap <f5> <esc>:w<cr>:make %:r<cr>:cw<cr>
+    endif
+endfunction
+au FileType c,cc,cpp,h,hpp,s call BindF5_C()
 function! BindF9_C()
     if filereadable("Makefile")
         set makeprg=make
@@ -37,7 +37,8 @@ function! BindF9_C()
         imap <f9> <esc>:w<cr>:make %:r<cr>:cw<cr>:!./%<<cr>
     endif
 endfunction
-au FileType c,cc,cpp,h,hpp,s call BindF9_C()    
+au FileType c,cc,cpp,h,hpp,s call BindF9_C()
+""""""""""""""""""""""" 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   >> Vundle <<
 
